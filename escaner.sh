@@ -169,9 +169,9 @@ while true; do
 
   fi
   
-  cat *.csv
-  cat .*.csv
-  cat .*.txt
+  #cat *.csv
+  #cat .*.csv
+  #cat .*.txt
 
 done
 
