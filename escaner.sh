@@ -11,10 +11,11 @@ if [ ! -f gecos.csv ]; then
 fi
 if [ ! -f data.csv ]; then
   echo "dia" > data.csv
-    
-  while read line; do
-    sed -i "1s/$/,$line/" data.csv
-  done <<< $(cat gecos.csv | cut -d, -f1) 
+  if [ -s gecos.csv ]; then
+    while read line; do
+      sed -i "1s/$/,$line/" data.csv
+    done <<< $(cat gecos.csv | cut -d, -f1) 
+  fi
 fi
 if [ ! -f .registro_tmp.csv ]; then
   touch .registro_tmp.csv
@@ -30,10 +31,12 @@ if [ $(cat .last_time_exec.txt) -lt $(date +%Y%m%d) ]; then
   for i in $(seq 1 $(cat gecos.csv | wc -l)); do
     sed -i "/$(date +%F)/s/$/,0h0m0s/" data.csv
   done
-
-  while read line; do
-    echo "$line,desconectado,0" >> .registro_tmp.csv
-  done <<< $(cat gecos.csv | cut -d, -f1) 
+  
+  if [ -s gecos.csv ]; then
+    while read line; do
+      echo "$line,desconectado,0" >> .registro_tmp.csv
+    done <<< $(cat gecos.csv | cut -d, -f1) 
+  fi
 fi
 
 while true; do
@@ -167,7 +170,8 @@ while true; do
   fi
   
   cat *.csv
-  cat .*
+  cat .*.csv
+  cat .*.txt
 
 done
 
