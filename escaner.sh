@@ -1,5 +1,5 @@
 #!/bin/bash
-# set -x
+
 
 #TODO al final del dia enviar un correo con sus horas
 
