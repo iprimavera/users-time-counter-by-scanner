@@ -47,16 +47,17 @@ while true; do
   #TODO no se por que da un error
   if [ -z $(cat gecos.csv | grep $codigo) ] 2>/dev/null; then 
     confirmacion="n"
-    echo "Parece que eres nuevo en el sistema."
+    tput setaf 4; echo "Parece que eres nuevo en el sistema."; tput sgr0
     until [ $confirmacion = "y" ]; do
-      echo -n "Indica tu nombre completo: "
+      tput setaf 2; echo -n "Indica tu nombre completo: "; tput sgr0
       read nombre
-      echo -n "Indica tu correo electronico: "
+      tput setaf 2; echo -n "Indica tu correo electronico: "; tput sgr0
       read correo
       clear
+      tput setaf 3
       echo " *** Esta informacion es correcta?:"
       echo "     Nombre completo: $nombre"
-      echo "     Correo electronico: $correo"
+      echo "     Correo electronico: $correo"; tput sgr0
       echo ""
       echo -n " [y/n]: "
       read -n1 confirmacion
@@ -66,7 +67,7 @@ while true; do
     echo "$codigo,desconectado,0" >> .registro_tmp.csv
     sed -i "1s/$/,$codigo/" data.csv 
     sed -i "/$(date +%F)/s/$/,0h0m0s/" data.csv
-    echo "Actualmente estas desconectado, vuelve a pasar tu codigo si quieres empezar a cotizar"
+    tput setaf 1; echo "Actualmente estas desconectado, vuelve a pasar tu codigo si quieres empezar a cotizar"; tput sgr0
     continue
   else
     nombre=$(cat gecos.csv | grep $codigo | cut -d, -f2)
@@ -88,7 +89,7 @@ while true; do
     
     # AL CONECTARSE
     
-    echo "Bienvenido $(echo $nombre | cut -d" " -f-2)!"
+    tput setaf 2; echo "Bienvenid@  $(echo $nombre | cut -d" " -f-2)!"; tput sgr0
     sed -i "/$codigo/s/desconectado,$tiempo_ultimo/conectado,$tiempo_actual/" .registro_tmp.csv
   
   else
@@ -164,7 +165,7 @@ while true; do
       print $0
     }' data.csv
 
-    echo "Hasta luego $(echo $nombre | cut -d" " -f-2)!"
+    tput setaf 1; echo "Hasta luego $(echo $nombre | cut -d" " -f-2)!"; tput sgr0
     sed -i "/$codigo/s/conectado,$tiempo_ultimo/desconectado,$tiempo_actual/" .registro_tmp.csv
 
   fi
