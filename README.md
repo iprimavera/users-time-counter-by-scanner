@@ -1,6 +1,7 @@
 # users time counter by scanner
 
 To run the scanner, use `./scanner.sh`
+
 To see the calendar and users data, run `./display.sh`
 
 ## How to use the scanner
