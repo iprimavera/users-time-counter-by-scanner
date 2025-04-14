@@ -1,6 +1,7 @@
 #!/bin/bash
 # set -x
 
+# esto es una prueba
 #TODO al final del dia enviar un correo con sus horas
 
 if [ ! -f .last_time_exec.txt ]; then
