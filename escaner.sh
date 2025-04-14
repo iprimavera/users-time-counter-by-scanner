@@ -165,6 +165,8 @@ while true; do
     }' data.csv
 
     tput setaf 1; echo "Hasta luego $(echo $nombre | cut -d" " -f-2)!"; tput sgr0
+    tput setaf 5; echo "Hoy has trabajado $total hasta ahora"; tput sgr0
+    # TODO poner cuanto tiempo le falta para completar las horas del dia
     sed -i "/$codigo/s/conectado,$tiempo_ultimo/desconectado,$tiempo_actual/" .registro_tmp.csv
 
   fi
