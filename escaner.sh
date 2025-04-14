@@ -43,6 +43,22 @@ while true; do
   read codigo
   clear
   
+  ya_trabajado=$(awk -F"," -v linea="$(date +%F)" -v columna="$codigo" '
+  NR==1 {
+    for(i=1; i<=NF; i++){
+      if($i == columna){
+        numerocolumna = i
+        break
+      }
+    }
+    next
+  }
+  {
+    if($1 == linea) {
+      print $numerocolumna
+    }
+  }' data.csv)
+
   #TODO no se por que da un error
   if [ -z $(cat gecos.csv | grep $codigo) ] 2>/dev/null; then 
     confirmacion="n"
@@ -88,7 +104,8 @@ while true; do
     
     # AL CONECTARSE
     
-    tput setaf 2; echo "Bienvenid@  $(echo $nombre | cut -d" " -f-2)!"; tput sgr0
+    tput setaf 2; echo "Bienvenid@ $(echo $nombre | cut -d" " -f-2)!"; tput sgr0
+    tput setaf 5; echo "Hoy has trabajado $ya_trabajado hasta ahora"; tput sgr0
     sed -i "/$codigo/s/desconectado,$tiempo_ultimo/conectado,$tiempo_actual/" .registro_tmp.csv
   
   else
@@ -107,22 +124,6 @@ while true; do
       trabajado_horas=$((trabajado_horas-1))
       trabajado_minutos=$((60-(-trabajado_minutos)))
     fi
-
-    ya_trabajado=$(awk -F"," -v linea="$(date +%F)" -v columna="$codigo" '
-    NR==1 {
-      for(i=1; i<=NF; i++){
-        if($i == columna){
-          numerocolumna = i
-          break
-        }
-      }
-      next
-    }
-    {
-      if($1 == linea) {
-        print $numerocolumna
-      }
-    }' data.csv)
     
     ya_trabajado_horas=$(echo $ya_trabajado | cut -d"h" -f1)
     ya_trabajado_minutos=$(echo $ya_trabajado | cut -d"m" -f1 | cut -d"h" -f2)
