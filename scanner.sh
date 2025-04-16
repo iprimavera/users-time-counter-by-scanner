@@ -82,7 +82,7 @@ while true; do
     echo "$codigo,desconectado,0" >> .registro_tmp.csv
     sed -i "1s/$/,$codigo/" data.csv 
     sed -i "/$(date +%F)/s/$/,0h0m0s/" data.csv
-    tput setaf 1; echo "Actualmente estas desconectado, vuelve a pasar tu codigo si quieres empezar a cotizar"; tput sgr0
+    tput setaf 1; echo "Actualmente estas desconectado, vuelve a pasar tu codigo si quieres empezar a inputar"; tput sgr0
     continue
   else
     nombre=$(cat gecos.csv | grep $codigo | cut -d, -f2)
