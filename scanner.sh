@@ -68,17 +68,20 @@ while true; do
       read nombre
       tput setaf 2; echo -n "Indica tu correo electronico: "; tput sgr0
       read correo
+      tput setaf 2; echo -n "Desea recibir correos? [y/n] : "; tput sgr0
+      read -n1 notificaciones
       clear
       tput setaf 3
       echo " *** Esta informacion es correcta?:"
       echo "     Nombre completo: $nombre"
-      echo "     Correo electronico: $correo"; tput sgr0
+      echo "     Correo electronico: $correo"
+      echo "     Recibir correos: $notificaciones"; tput sgr0
       echo ""
-      echo -n " [y/n]: "
+      echo -n " [y/n] : "
       read -n1 confirmacion
       clear
     done
-    echo "$codigo,$nombre,$correo" >> gecos.csv
+    echo "$codigo,$nombre,$correo,$notificaciones" >> gecos.csv
     echo "$codigo,desconectado,0" >> .registro_tmp.csv
     sed -i "1s/$/,$codigo/" data.csv 
     sed -i "/$(date +%F)/s/$/,0h0m0s/" data.csv
@@ -100,6 +103,7 @@ while true; do
     numero=$((numero+2))
   done
 
+
   if [ $(cat .registro_tmp.csv | grep $codigo | cut -d, -f2) = "desconectado" ]; then
     
     # AL CONECTARSE
@@ -107,6 +111,11 @@ while true; do
     tput setaf 2; echo "Bienvenid@ $(echo $nombre | cut -d" " -f-2)!"; tput sgr0
     tput setaf 5; echo "Hoy has trabajado $ya_trabajado hasta ahora"; tput sgr0
     sed -i "/$codigo/s/desconectado,$tiempo_ultimo/conectado,$tiempo_actual/" .registro_tmp.csv
+    
+    # CORREOS
+    if [ $ya_trabajado = "0h0m0s" -a $(cat gecos.csv | grep $codigo | cut -d, -f4) = "y" ]; then
+      ./email_sender.sh $correo $nombre
+    fi
   
   else
 
