@@ -14,10 +14,9 @@ email_reciever = "$correo"
 password = "ejemplo"
 
 
-subject = "Prueba"
+subject = "Ejemplo"
 body = """
-  esto es una Prueba
-
+  esto es un Ejemplo
 """
 
 
