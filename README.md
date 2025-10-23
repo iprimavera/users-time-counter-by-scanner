@@ -7,7 +7,7 @@
 
 The project is being entirely rewritten and improved in kotlin, with major optimizations and a cleaner modular architecture:
 
-**-> New version in development:** [_](_)
+**-> New version in development:** [Work time scanner](https://github.com/iprimavera/Work-time-scanner.git)
 
 ## How to use the scanner
 
