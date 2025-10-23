@@ -3,22 +3,18 @@
 > ⚠️ **This repository contains the base and original version of the project.**  
 > It is **no longer maintained or updated**.
 
----
-
 ## New Version Available
 
 The project is being entirely rewritten and improved in kotlin, with major optimizations and a cleaner modular architecture:
 
 **-> New version in development:** [_](_)
 
----
----
+## How to use the scanner
 
 To run the scanner, use `./scanner.sh`
 
 To see the calendar and users data, run `./display.sh`
 
-## How to use the scanner
 
 The scanner is very simple. when executed, it automatically creates all the required files and starts listening for an ID (with the scanner).
 
