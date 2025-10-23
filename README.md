@@ -1,4 +1,18 @@
-# users time counter by scanner
+# users time counter by scanner (Outdated)
+
+> ⚠️ **This repository contains the base and original version of the project.**  
+> It is **no longer maintained or updated**.
+
+---
+
+## New Version Available
+
+The project is being entirely rewritten and improved in kotlin, with major optimizations and a cleaner modular architecture:
+
+**-> New version in development:** [_](_)
+
+---
+---
 
 To run the scanner, use `./scanner.sh`
 
